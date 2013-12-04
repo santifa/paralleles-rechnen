@@ -1,0 +1,65 @@
+threads : 1 , schritte : 100000000 
+Ergebnis: 3.141594
+relativer Fehler : 0.000000
+real 2.73
+user 2.73
+sys 0.00
+
+threads : 2 , schritte : 100000000 
+Ergebnis: 3.141593
+relativer Fehler : 0.000000
+real 1.36
+user 2.73
+sys 0.00
+
+threads : 4 , schritte : 100000000 
+Ergebnis: 3.141578
+relativer Fehler : -0.000005
+real 0.69
+user 2.73
+sys 0.00
+
+threads : 8 , schritte : 100000000 
+Ergebnis: 3.141603
+relativer Fehler : 0.000003
+real 0.53
+user 2.73
+sys 0.00
+
+threads : 16 , schritte : 100000000 
+Ergebnis: 3.141638
+relativer Fehler : 0.000015
+real 0.44
+user 2.74
+sys 0.00
+
+#####################################
+    4 durchlaeufe mit 8 threads      
+threads : 8 , schritte : 100000000 
+Ergebnis: 3.141603
+relativer Fehler : 0.000003
+real 0.55
+user 2.73
+sys 0.00
+
+threads : 8 , schritte : 100000000 
+Ergebnis: 3.141603
+relativer Fehler : 0.000003
+real 0.54
+user 2.73
+sys 0.00
+
+threads : 8 , schritte : 100000000 
+Ergebnis: 3.141603
+relativer Fehler : 0.000003
+real 0.54
+user 2.75
+sys 0.00
+
+threads : 8 , schritte : 100000000 
+Ergebnis: 3.141603
+relativer Fehler : 0.000003
+real 0.58
+user 2.76
+sys 0.00
+
