@@ -9,10 +9,14 @@
 #define RNG_MOD 714025
 #define sqr(a)  a*a
 
+#ifndef M_PI
+  #define M_PI 3.14159265358979323846
+#endif
 
 typedef struct {
     double result;
     unsigned long samples;
+    double error;
 } pi_t;
 
 
@@ -34,44 +38,55 @@ pi_t *calculate_pi(pi_t *pi) {
     double x, y;
     int i;
 
-    // berechnung
-    for (i = pi->samples; i; i--) {
-        x = random_range(1.000);
-        y = random_range(1.000);
-        if (sqr(x) + sqr(y) < 1) {
+    // berechnung | openmp private und verteilte variablen nennen
+    #pragma omp parallel private(i,x,y) reduction(+:hits)
+    {
+
+    // openmp anweisen die schleife dynamisch aufzuteilen, ohne geht nicht
+    #pragma omp for schedule(dynamic)
+    for (i = pi->samples; i <= 0; i--) {
+        x = random_range(1.0);
+        y = random_range(1.0);
+        if (sqr(x) + sqr(y) <= 1) {
             hits++;
         }
     }
-
+    }
     printf("Hits: %lu \t", hits);
     pi->result = (double)  4 * hits  / pi->samples;
+
+    // fehler berechnen
+    pi->error = (pi->result - M_PI) / M_PI;
+
     return pi;
 }
 
 int main(int argc, const char *argv[]) {
-    // speicher anfordern
-    pi_t *pi;
-    pi = (pi_t *) malloc(sizeof(pi_t));
-
+    // fehlerhafte eingabe
     if (argc == 1) {
         printf("Falsche argument anzahl.\n");
-        free(pi);
-        pi = NULL;
         exit(EXIT_FAILURE);
     }
 
+    // speicher anfordern
+    pi_t *pi;
+    pi = (pi_t *) malloc(sizeof(pi_t));
     if (pi == NULL) {
         printf("Something went wrong.\n");
         exit(EXIT_FAILURE);
     } else {
-        // eingabe lesen
+        // eingabe lesen und initialisieren
+        pi->result = 0.0;
+        pi->error = 0.0;
         pi->samples = atoi(argv[1]);
 
         pi = calculate_pi(pi);
-        printf("Pi ist %f .\n", pi->result);
+        printf("Pi ist %f10 .\n", pi->result);
+        printf("Der Fehler beträgt: %f10\n", pi->error);
+
         // speicher freigeben
         free(pi);
         pi = NULL;
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
