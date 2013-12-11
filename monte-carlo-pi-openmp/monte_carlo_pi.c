@@ -63,7 +63,7 @@ pi_t *calculate_pi(pi_t *pi) {
 
 int main(int argc, const char *argv[]) {
     // fehlerhafte eingabe
-    if (argc == 1) {
+    if (argc != 2) {
         printf("Falsche argument anzahl.\n");
         exit(EXIT_FAILURE);
     }
