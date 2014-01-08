@@ -2,7 +2,7 @@ Implementierungsaufwand
 =====
 
 Der Aufwand für die Implementierung im Gegensatz zu
-pthreads ist sehr einfac, da die Pragmas von OpenMP
+pthreads ist sehr einfach, da die Pragmas von OpenMP
 einfach und logisch anwendbar sind.
 
 Zufallsgenerator
