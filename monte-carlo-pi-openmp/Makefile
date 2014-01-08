@@ -1,9 +1,12 @@
 CC = gcc
 CFLAGS = -Wall -Wpedantic -Wextra -g -fopenmp
-LIBS = -lm
+LIBS = -lm -lrt
 
 
 all: pi
 
 pi: *.c
 	$(CC) -o $@ $(CFLAGS) $(LIBS) $<
+
+clean:
+	rm -f pi

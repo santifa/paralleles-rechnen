@@ -1,8 +1,13 @@
+CC = gcc
+CFLAGS = -pthread -Wall -O2
+LIBS = -lrt
+
 all: pi
 
-clean: 
+
+pi : *.c
+	$(CC) -o $@ $(CFLAGS) $(LIBS) $<
+
+
+clean:
 	rm -f pi
-
-pi : pi.c
-	gcc -pthread -Wall -O2 -o pi pi.c
-
