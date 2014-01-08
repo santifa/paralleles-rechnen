@@ -23,6 +23,8 @@ typedef struct {
 static int state = 0;
 #pragma omp threadprivate(state)
 
+/* omp threads */
+void omp_set_num_threads(int threads);
 /*
  * random funtkion, nicht threadsafe
  */
@@ -75,14 +77,14 @@ return pi;
 
 int main(int argc, const char *argv[]) {
     pi_t *pi;
-    unsigned long long msec;
+    unsigned long msec;
     struct timespec start, end, tmp;
 
     /* start zeit | variablen werden ignoriert */
     clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
 
     /* fehlerhafte eingabe */
-    if (argc != 2) {
+    if (argc != 3) {
         printf("Falsche argument anzahl.\n");
         exit(EXIT_FAILURE);
     }
@@ -97,6 +99,7 @@ int main(int argc, const char *argv[]) {
         pi->result = 0.0;
         pi->error = 0.0;
         pi->samples = atoi(argv[1]);
+        omp_set_num_threads(atoi(argv[2]));
 
         pi = calculate_pi(pi);
         printf("Pi ist %f10 .\n", pi->result);
@@ -121,7 +124,7 @@ int main(int argc, const char *argv[]) {
     msec = tmp.tv_sec * 1000;
     msec += tmp.tv_nsec / 1000000;
     /* zeit ausgeben */
-    printf("Zeit %lld msec", msec);
+    printf("Zeit %ld msec", msec);
 
     return EXIT_SUCCESS;
 }
