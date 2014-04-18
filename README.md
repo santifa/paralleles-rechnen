@@ -1,4 +1,4 @@
 paralleles-rechnen
 ==================
 
-Uebungen zur Veranstaltung "Paralleles Rechnen" an der Uni-Potsdam
+Exercises from the seminar "paralleles rechnen" with openmp and openmpi.
